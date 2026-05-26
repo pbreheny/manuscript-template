@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[left=0.5in,right=0.5in,bottom=0.75in,top=0.75in]{geometry}
+
+% Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\graphicspath{{fig/}}
+\usepackage{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, citecolor=black, linkcolor=., urlcolor=cyan}
+\usepackage[shortlabels]{enumitem}
+\numberwithin{equation}{section}
+\usepackage{booktabs}
+
+% Macros
+\input{commands}
+
+% Notes to each other
+\newcommand{\pb}[1]{\textcolor{red}{#1}}
+\newcommand{\yl}[1]{\textcolor{blue}{#1}}
+
+% Define abstract environment
+\renewcommand{\abstract}[1]{
+ \centerline{
+ \begin{minipage}{0.7\linewidth}
+ \hrule
+ \vskip 0.1in
+  \begin{center}
+    {\bf Abstract}
+  \end{center}
+  #1
+ \vskip 0.1in
+ \hrule
+ \end{minipage}}
+ \vskip 0.3in}
+
+% Title/author/date
+\title{Title of the paper}
+\author{Patrick Breheny\\Department of Biostatistics\\University of Iowa}
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+
+\abstract{Abstract goes here.}
+
+\input{main}
+
+\bibliographystyle{ims}
+\bibliography{ref}
+
+\end{document}

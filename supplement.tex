@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage[left=0.5in,right=0.5in,bottom=0.75in,top=0.75in]{geometry}
+
+% Packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\graphicspath{{fig/}}
+\usepackage{natbib}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, citecolor=black, linkcolor=., urlcolor=cyan}
+\usepackage[shortlabels]{enumitem}
+\numberwithin{equation}{section}
+\usepackage{booktabs}
+
+% Macros
+\input{commands}
+
+% Notes to each other
+\newcommand{\pb}[1]{\textcolor{red}{#1}}
+\newcommand{\yl}[1]{\textcolor{blue}{#1}}
+
+% S-style numbering
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+
+% Title/author/date
+\title{Supplemental material for: (title)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Separate files}
+
+Almost all journals expect the main manuscript and supplement as separate PDF files and separate uploads, so it is best to keep these separate rather than trying to merge them into a single document.
+
+The only downside of this is that cross-referencing figures is more challenging: writing \verb|\ref{fig:my-sim}| won't work if you're in the supplement and trying to reference a main-document object. If you need this functionality, you can use a package called xr-hyper, which allows references between documents.
+
+\section{Numbering and lettering}
+
+Most journals want the supplement to have simple S-style numbering (Figure S1, Table S2, and so on); this is implemented here.
+
+\section{Wrapper}
+
+If you prefer to separate the supplement into wrapper plus content, you can, although in my experience it isn't necessary. No one cares what format the supplement is in, so you can just keep a simple format and not worry about changing it.
+
+Citations work the same way as before. \citep{Tibshirani1996}
+
+\bibliographystyle{ims}
+\bibliography{ref}
+
+\end{document}
