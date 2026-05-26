@@ -1,5 +1,5 @@
 from pathlib import Path
-ms = Path.cwd().resolve().parts[-1]
+ms = "my-paper"
 
 rule pdf:
     input:

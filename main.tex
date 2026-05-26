@@ -1,10 +1,60 @@
-\section{Introduction}
+\section{Cross-references and citations}
+
+\textbf{Label naming conventions.} Labels should:
+
+\begin{itemize}
+\item be lowercase
+\item use hyphens, not spaces or camelCase
+\item include a type prefix (\texttt{sec:}, \texttt{fig:}, \texttt{tab:}, \texttt{eq:}, \texttt{thm:}, etc.)
+\end{itemize}
+
+Good labels:
+
+\begin{itemize}
+\item \verb|\label{sec:methods-derivation}|
+\item \verb|\label{fig:simulation-results}|
+\item \verb|\label{eq:score-function}|
+\end{itemize}
+
+Bad labels:
+
+\begin{itemize}
+\item \verb|\label{Section:Methods}|
+\item \verb|\label{simulationResults}|
+\item \verb|\label{Table 1}|
+\end{itemize}
+
+\textbf{Use \texttt{\textbackslash eqref} for equations.} When referring to an equation, use \verb|\eqref{eq:score-function}|, not \verb|\ref{eq:score-function}|. Here's what they look like when typeset: equation~\eqref{eq:score-function} versus equation~\ref{eq:score-function}. The eqref version formats the reference as it appears in the actual equation (here, that's with parentheses, but the point is that if you change how equations look, the reference will always match the equation).
+
+\textbf{Use nonbreaking spaces in references.} Use \verb|Section~\ref{sec:methods}|, not \verb|Section \ref{sec:methods}|. The \verb|~| prevents awkward line breaks.
+
+\textbf{Where to put citations?} This can be complicated. In general, citations should go at the end of a sentence, such as: Penalized regression methods are widely used in high-dimensional settings \citep{Hastie2009,Zou2005}.
+
+Every once in a while, the structure of a sentence requires a mid-sentence citation, such as: The lasso induces sparsity \citep{Tibshirani1996}, whereas ridge regression shrinks coefficients continuously \citep{Hoerl1970}. In that sentence, if you were to put both citations at the end, it would be ambiguous and confusing.
+
+But try to do this only when absolutely necessary, because it makes sentences less readable: The lasso \citep{Tibshirani1996} is widely used in high-dimensional regression \citep{Hastie2009} and has inspired numerous extensions \citep{Zou2005,Fan2001}. This sentence is choppy and hard to parse.
+
+\textbf{\texttt{\textbackslash citep} versus \texttt{\textbackslash citet}.} Use \verb|\citep{}| for parenthetical citations and \verb|\citet{}| when the author name appears grammatically in the sentence:
+
+\begin{itemize}
+\item Several approaches have been proposed \citep{Fan2001, Zou2005}.
+\item \citet{Zou2005} introduced the adaptive lasso.
+\end{itemize}
+
+Don't write sentences like this: In \citep{Zou2005}, the adaptive lasso was proposed. Or this: Zou \citep{Zou2005} proposed the adaptive lasso.
+
+\section{Mathematical writing and typesetting}
 
 \section{Idea}
 
 What's $\bbh$?
 
-\as{\y = \X\bb + \bvep}
+$$ \y = \X\bb + \bvep $$
+
+\begin{equation}
+  \label{eq:score-function}
+  u(\bb) = \X \Tr \y - \X \Tr \X \bb
+\end{equation}
 
 \section{Details}
 
@@ -21,7 +71,7 @@ Treat equations as text with respect to punctuation.
 Use sec:blah and Figure fig:blah so on.
 
 \section{Simulation studies}
-\label{Sec:sim}
+\label{sec:sim}
 
 \pb{I think we should do x instead of y}
 
@@ -34,3 +84,12 @@ Use sec:blah and Figure fig:blah so on.
 \section*{Acknowledgments}
 
 \section*{Appendix}
+
+labels
+
+references
+
+``real data''
+
+structure
+
