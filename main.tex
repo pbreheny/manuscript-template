@@ -1,6 +1,8 @@
 \section{Cross-references and citations}
 
-\textbf{Label naming conventions.} Labels should:
+\subsubsection*{Label naming conventions}
+
+Labels should:
 
 \begin{itemize}
 \item be lowercase
@@ -24,17 +26,30 @@ Bad labels:
 \item \verb|\label{Table 1}|
 \end{itemize}
 
-\textbf{Use \texttt{\textbackslash eqref} for equations.} When referring to an equation, use \verb|\eqref{eq:score-function}|, not \verb|\ref{eq:score-function}|. Here's what they look like when typeset: equation~\eqref{eq:score-function} versus equation~\ref{eq:score-function}. The eqref version formats the reference as it appears in the actual equation (here, that's with parentheses, but the point is that if you change how equations look, the reference will always match the equation).
+\subsubsection*{Use \texttt{\textbackslash eqref} for equations}
 
-\textbf{Use nonbreaking spaces in references.} Use \verb|Section~\ref{sec:methods}|, not \verb|Section \ref{sec:methods}|. The \verb|~| prevents awkward line breaks.
+When referring to an equation, use \verb|\eqref{eq:score-function}|, not \verb|\ref{eq:score-function}|. Here's what they look like when typeset: equation~\eqref{eq:score-function} versus equation~\ref{eq:score-function}. The eqref version formats the reference as it appears in the actual equation (here, that's with parentheses, but the point is that if you change how equations look, the reference will always match the equation).
 
-\textbf{Where to put citations?} This can be complicated. In general, citations should go at the end of a sentence, such as: Penalized regression methods are widely used in high-dimensional settings \citep{Hastie2009,Zou2005}.
+\begin{equation}
+  \label{eq:score-function}
+  u(\bb) = \X \Tr \y - \X \Tr \X \bb
+\end{equation}
+
+\subsubsection*{Use nonbreaking spaces in references}
+
+Use \verb|Section~\ref{sec:methods}|, not \verb|Section \ref{sec:methods}|. The \verb|~| prevents awkward line breaks.
+
+\subsubsection*{Where to put citations?}
+
+This can be complicated. In general, citations should go at the end of a sentence, such as: Penalized regression methods are widely used in high-dimensional settings \citep{Hastie2009,Zou2005}.
 
 Every once in a while, the structure of a sentence requires a mid-sentence citation, such as: The lasso induces sparsity \citep{Tibshirani1996}, whereas ridge regression shrinks coefficients continuously \citep{Hoerl1970}. In that sentence, if you were to put both citations at the end, it would be ambiguous and confusing.
 
 But try to do this only when absolutely necessary, because it makes sentences less readable: The lasso \citep{Tibshirani1996} is widely used in high-dimensional regression \citep{Hastie2009} and has inspired numerous extensions \citep{Zou2005,Fan2001}. This sentence is choppy and hard to parse.
 
-\textbf{\texttt{\textbackslash citep} versus \texttt{\textbackslash citet}.} Use \verb|\citep{}| for parenthetical citations and \verb|\citet{}| when the author name appears grammatically in the sentence:
+\subsubsection*{\texttt{\textbackslash citep} versus \texttt{\textbackslash citet}}
+
+Use \verb|\citep{}| for parenthetical citations and \verb|\citet{}| when the author name appears grammatically in the sentence:
 
 \begin{itemize}
 \item Several approaches have been proposed \citep{Fan2001, Zou2005}.
@@ -45,51 +60,90 @@ Don't write sentences like this: In \citep{Zou2005}, the adaptive lasso was prop
 
 \section{Mathematical writing and typesetting}
 
-\section{Idea}
+\subsubsection*{General advice}
 
-What's $\bbh$?
+\begin{itemize}
+\item Try to keep your notation clear and simple
+\item Avoid double-subscripts
+\item Avoid introducing symbols for quantities you only use once
+\item When defining something, give it both a technical and conceptual definition. For example: Let $L(\beta) = \sum_i \ell_i(\beta)$ denote the log-likelihood, which measures how well the value $\beta$ agrees with the data.
+\end{itemize}
 
-$$ \y = \X\bb + \bvep $$
+\subsubsection*{Math mode is for mathematical symbols, not ordinary text}
 
-\begin{equation}
-  \label{eq:score-function}
-  u(\bb) = \X \Tr \y - \X \Tr \X \bb
-\end{equation}
+Unadorned letters in math mode are interpreted as variables. If you write \verb|AIC| in math mode, this will be typeset as $AIC$: the variable $A$ times the variable $I$ times the variable $C$. If you need AIC in an equation, use \verb|\text{AIC}|, \verb|\text{CV}|, and so on.
 
-\section{Details}
+Similarly, don't write \verb|log|, \verb|exp|, \verb|max|, and so on. There are precisely defined commands for all these mathematical operators that preserve correct spacing and typography: \verb|\log|, \verb|\exp|, \verb|\max|. Compare the following:
 
-\citet{Tibshirani1996} is a good paper.
+\begin{align*}
+  \text{Bad}: exp x = max_y log y \\
+  \text{Good}: \exp x = \max_y \log y \\
+\end{align*}
 
-\section{Common mistakes}
+\subsubsection*{Don't type the pipe}
 
-Use eqref instead of ref.
+Use \verb|\mid|, \verb|\abs|, and \verb|\norm|. Never type \verb/|/ directly.
 
-Use $\text{CV}$ instead of $CV$.
+\begin{align*}
+  \text{Bad}: |x| = ||\y|| | z \\
+  \text{Good}: \abs{x} = \norm{\y} \mid z
+\end{align*}
 
-Treat equations as text with respect to punctuation.
+\subsubsection*{Equations are part of the sentence}
 
-Use sec:blah and Figure fig:blah so on.
+Equations should follow ordinary punctuation rules.
 
-\section{Simulation studies}
-\label{sec:sim}
+If the equation ends a sentence, it needs a period, as in
+
+$$ L(\beta) = \sum_{i=1}^n \ell_i(\beta). $$
+
+If the equation ends a clause, as in
+
+$$ L(\beta) = \sum_{i=1}^n \ell_i(\beta), $$
+
+it needs a comma. Displayed equations are not punctuation-free objects floating outside the grammar of the paragraph.
+
+\section{Typography and punctuation}
+
+\subsubsection*{Dashes and hyphens}
+
+\begin{itemize}
+\item Use a single \verb|-| for a hyphenated word like well-known
+\item Use two dashes \verb|--| for ranges and relationships, like pages 10--15 and bias--variance tradeoff
+\item Use three dashes \verb|---| for interruptions and emphasis, like saying that bias --- while traditionally considered bad --- can often be useful
+\end{itemize}
+
+\subsubsection*{LaTeX requires directional quotes}
+
+\begin{itemize}
+\item Good: \verb|``quoted text''| $\longrightarrow$ ``quoted text''
+\item Bad: \verb|"quoted text"| $\longrightarrow$ "quoted text" (note that the quotes on the left are backwards)
+\end{itemize}
+
+\section{Figures and tables}
+
+Every figure and table should:
+
+\begin{itemize}
+\item have a caption
+\item have a label
+\item be referenced in the text (using the label, not something like ``see the figure below'')
+\end{itemize}
+
+\subsubsection*{Structure of captions and labels}
+
+need a reproducible example here
+
+\section{Other stuff}
+
+\subsubsection*{Notes to one another}
+
+I like to define little color-coded shortcut macros so that authors can add little notes to each other.
 
 \pb{I think we should do x instead of y}
 
 \yl{what a great idea!}
 
-\section{Real data}
+\subsubsection*{Don't say ``real data''}
 
-\section{Conclusions}
-
-\section*{Acknowledgments}
-
-\section*{Appendix}
-
-labels
-
-references
-
-``real data''
-
-structure
 
