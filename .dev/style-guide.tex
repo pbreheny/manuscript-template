@@ -3,11 +3,20 @@
 
 % Packages
 \usepackage{graphicx}
-\graphicspath{{template/fig/}}
+\graphicspath{{../template/code/out/}}
 \usepackage{natbib}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, citecolor=black, linkcolor=black, urlcolor=cyan}
 \usepackage{booktabs}
+\usepackage{xcolor}
+\definecolor{codebg}{gray}{0.95}
+\usepackage{showexpl}
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  explpreset={numbers=none, pos=r}
+}
+\usepackage{parskip}
 
 % Macros
 \input{math-unicode}
@@ -17,7 +26,7 @@
 \newcommand{\yl}[1]{\textcolor{blue}{#1}}
 
 % Title/author/date
-\title{Style guide}
+\title{Style guide / Common \LaTeX \, mistakes}
 \author{Patrick Breheny \\ Department of Biostatistics \\ University of Iowa}
 \date{\today}
 
@@ -55,7 +64,21 @@ Bad labels:
 
 \subsubsection*{Use \texttt{\textbackslash eqref} for equations}
 
-When referring to an equation, use \verb|\eqref{eq:score-function}|, not \verb|\ref{eq:score-function}|. Here's what they look like when typeset: equation~\eqref{eq:score-function} versus equation~\ref{eq:score-function}. The eqref version formats the reference as it appears in the actual equation (here, that's with parentheses, but the point is that if you change how equations look, the reference will always match the equation).
+When referring to an equation, use \verb|\eqref{eq:score-function}|, not \verb|\ref{eq:score-function}|.
+
+Good:
+
+\begin{LTXexample}
+equation~\eqref{eq:score-function}
+\end{LTXexample}
+
+Bad:
+
+\begin{LTXexample}
+equation~\ref{eq:score-function}
+\end{LTXexample}
+
+The eqref version formats the reference as it appears in the actual equation (here, that's with parentheses, but the point is that if you change how equations look, the reference will always match the equation).
 
 \begin{equation}
   \label{eq:score-function}
@@ -68,59 +91,131 @@ Use \verb|Section~\ref{sec:methods}|, not \verb|Section \ref{sec:methods}|. The 
 
 \subsubsection*{Where to put citations?}
 
-This can be complicated. In general, citations should go at the end of a sentence, such as: Penalized regression methods are widely used in high-dimensional settings \citep{Hastie2009,Zou2005}.
-
-Every once in a while, the structure of a sentence requires a mid-sentence citation, such as: The lasso induces sparsity \citep{Tibshirani1996}, whereas ridge regression shrinks coefficients continuously \citep{Hoerl1970}. In that sentence, if you were to put both citations at the end, it would be ambiguous and confusing.
-
-But try to do this only when absolutely necessary, because it makes sentences less readable: The lasso \citep{Tibshirani1996} is widely used in high-dimensional regression \citep{Hastie2009} and has inspired numerous extensions \citep{Zou2005,Fan2001}. This sentence is choppy and hard to parse.
+This can be complicated. In general, citations should go at the end of a sentence:
+\begin{quote}
+Penalized regression methods are widely used in high-dimensional settings \citep{Hastie2009,Zou2005}.  
+\end{quote}
+Every once in a while, the structure of a sentence requires a mid-sentence citation:
+\begin{quote}
+The lasso induces sparsity \citep{Tibshirani1996}, whereas ridge regression shrinks coefficients continuously \citep{Hoerl1970}.  
+\end{quote}
+In that sentence, if you were to put both citations at the end, it would be ambiguous and confusing. But try to do this only when absolutely necessary, because it makes sentences less readable:
+\begin{quote}
+The lasso \citep{Tibshirani1996} is widely used in high-dimensional regression \citep{Hastie2009} and has inspired numerous extensions \citep{Zou2005,Fan2001}.  
+\end{quote}
+This sentence is choppy and hard to parse.
 
 \subsubsection*{\texttt{\textbackslash citep} versus \texttt{\textbackslash citet}}
 
-Use \verb|\citep{}| for parenthetical citations and \verb|\citet{}| when the author name appears grammatically in the sentence:
+Use \verb|\citep{}| for parenthetical citations and \verb|\citet{}| when the author name appears grammatically in the sentence.
 
-\begin{itemize}
-\item Several approaches have been proposed \citep{Fan2001, Zou2005}.
-\item \citet{Zou2005} introduced the adaptive lasso.
-\end{itemize}
+Good:
 
-Don't write sentences like this: In \citep{Zou2005}, the adaptive lasso was proposed. Or this: Zou \citep{Zou2005} proposed the adaptive lasso.
+\begin{LTXexample}
+Several approaches have been proposed
+\citep{Fan2001, Zou2005}. \\
+
+\citet{Zou2005} introduced the adaptive
+lasso.
+\end{LTXexample}
+
+Bad:
+
+\begin{LTXexample}
+In \citep{Zou2005}, the adaptive lasso was
+proposed. \\
+
+Zou \citep{Zou2005} proposed the adaptive
+lasso.
+\end{LTXexample}
+
+\subsubsection*{Incorrect capitalization in BibTex}
+
+BibTeX styles often convert article titles to sentence case. Braces protect capital letters and acronyms that must remain capitalized.
+
+Bad:
+
+\begin{center}
+\begin{minipage}{0.46\textwidth}
+\begin{lstlisting}
+title = {Analysis of RNA-Seq Data}
+\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.46\textwidth}
+  \vspace{0.1em}
+Analysis of rna-seq data
+\end{minipage}
+\end{center}
+
+Good:
+
+\begin{center}
+\begin{minipage}{0.46\textwidth}
+\begin{lstlisting}
+title = {Analysis of {RNA}-Seq Data}
+\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.46\textwidth}
+  \vspace{0.1em}
+Analysis of RNA-seq data
+\end{minipage}
+\end{center}
 
 \section{Mathematical writing and typesetting}
 
 \subsubsection*{General advice}
 
 \begin{itemize}
-\item Try to keep your notation clear and simple
-\item Avoid double-subscripts
+\item Avoid double-subscripts like $A_{n_i}$
 \item Avoid introducing symbols for quantities you only use once
-\item When defining something, give it both a technical and conceptual definition. For example: Let $L(\beta) = \sum_i \ell_i(\beta)$ denote the log-likelihood, which measures how well the value $\beta$ agrees with the data.
+\item When defining something, it is usually a good idea to give it both a technical and conceptual definition. For example: Let $L(\beta) = \sum_i \ell_i(\beta)$ denote the log-likelihood, which measures how well the value $\beta$ agrees with the data.
 \end{itemize}
 
 \subsubsection*{Math mode is for mathematical symbols, not ordinary text}
 
 Unadorned letters in math mode are interpreted as variables. If you write \verb|AIC| in math mode, this will be typeset as $AIC$: the variable $A$ times the variable $I$ times the variable $C$. If you need AIC in an equation, use \verb|\text{AIC}|, \verb|\text{CV}|, and so on.
 
-Similarly, don't write \verb|log|, \verb|exp|, \verb|max|, and so on. There are precisely defined commands for all these mathematical operators that preserve correct spacing and typography: \verb|\log|, \verb|\exp|, \verb|\max|. Compare the following:
+Similarly, don't write \verb|log|, \verb|exp|, \verb|max|, and so on. There are precisely defined commands for all these mathematical operators that preserve correct spacing and typography: \verb|\log|, \verb|\exp|, \verb|\max|.
 
-\begin{align*}
-  \text{Bad}: exp x = max_y log y \\
-  \text{Good}: \exp x = \max_y \log y \\
-\end{align*}
+Good:
+
+\begin{LTXexample}
+$ \text{AIC} = -2\ell + 2p $ \\
+$ \exp x = \max_y \log y $
+\end{LTXexample}
+
+Bad:
+
+\begin{LTXexample}
+$ AIC = -2\ell + 2p $ \\
+$ exp x = max_y log y $
+\end{LTXexample}
 
 \subsubsection*{Don't type the pipe}
 
 Use \verb|\mid|, \verb|\abs|, and \verb|\norm|. Never type \verb/|/ directly.
 
-\begin{align*}
-  \text{Bad}: |x| = ||\y|| | z \\
-  \text{Good}: \abs{x} = \norm{\y} \mid z
-\end{align*}
+Good:
+
+\begin{LTXexample}
+$ \abs{x} = \norm{\y} \mid z $
+\end{LTXexample}
+
+Bad:
+
+\begin{LTXexample}
+$ |x| = ||\y|| | z $
+\end{LTXexample}
 
 \subsubsection*{Equations are part of the sentence}
 
 Equations should follow ordinary punctuation rules.
 
-If the equation ends a sentence, it needs a period, as in
+\begin{LTXexample}
+If the equation ends a sentence, it needs a
+period, like this:
 
 $$ L(\beta) = \sum_{i=1}^n \ell_i(\beta). $$
 
@@ -128,24 +223,44 @@ If the equation ends a clause, as in
 
 $$ L(\beta) = \sum_{i=1}^n \ell_i(\beta), $$
 
-it needs a comma. Displayed equations are not punctuation-free objects floating outside the grammar of the paragraph.
+it needs a comma.
+\end{LTXexample}
+
+Displayed equations are not punctuation-free objects floating outside the grammar of the paragraph.
 
 \section{Typography and punctuation}
 
 \subsubsection*{Dashes and hyphens}
 
 \begin{itemize}
-\item Use a single \verb|-| for a hyphenated word like well-known
-\item Use two dashes \verb|--| for ranges and relationships, like pages 10--15 and bias--variance tradeoff
-\item Use three dashes \verb|---| for interruptions and emphasis, like saying that bias --- while traditionally considered bad --- can often be useful
+\item Use a single \verb|-| for hyphenated words
+\item Use two dashes \verb|--| for ranges and relationships
+\item Use three dashes \verb|---| for interruptions and emphasis
 \end{itemize}
+
+\begin{LTXexample}
+Brad Efron is a well-known statistician. \\
+The bias--variance tradeoff is shown on
+pages 10--15. \\
+Bias --- while traditionally considered bad ---
+can often be useful.
+\end{LTXexample}
 
 \subsubsection*{LaTeX requires directional quotes}
 
-\begin{itemize}
-\item Good: \verb|``quoted text''| $\longrightarrow$ ``quoted text''
-\item Bad: \verb|"quoted text"| $\longrightarrow$ "quoted text" (note that the quotes on the left are backwards)
-\end{itemize}
+Good:
+
+\begin{LTXexample}
+``quoted text''
+\end{LTXexample}
+
+Bad:
+
+\begin{LTXexample}
+"quoted text"
+\end{LTXexample}
+
+Note that the quotes on the left are backwards in the ``bad'' example.
 
 \section{Figures and tables}
 
@@ -157,23 +272,76 @@ Every figure and table should:
 \item be referenced in the text (using the label, not something like ``see the figure below'')
 \end{itemize}
 
-\subsubsection*{Structure of captions and labels}
+\subsubsection*{Figures}
 
-need a reproducible example here
+The call to \verb|\includegraphics{}| should not include the directory path --- only the file name. The path to the directory where the figures are located should be set with \verb|\graphicspath{}| in the preamble; see the template for an example.
+
+\begin{LTXexample}
+\begin{figure}
+  \includegraphics[width=\linewidth]{t-fig.pdf}
+  \caption{The equal variance $t$-test 
+  suffers from a lack of power when the
+  large-variance group has larger sample
+  size.}
+  \label{fig:t-variance}
+\end{figure}
+\end{LTXexample}
+
+\subsubsection*{Tables}
+
+\begin{enumerate}
+  \item Use \verb|\toprule|, \verb|\midrule|, and \verb|\bottomrule| (from the \texttt{booktabs} package)
+  \item Never use vertical rules.
+  \item Align numbers consistently.
+  \item Report only enough digits to convey meaningful information. No one could possibly care that the MSE was 2.3455 instead of 2.35. Every digit must justify its existence. Extra digits consume space, distract the reader, and almost never affect the scientific conclusion. When in doubt, round more aggressively.
+\end{enumerate}
+
+For more on how to lay out a professional-looking table, see the \href{https://mirrors.ibiblio.org/pub/mirrors/CTAN/macros/latex/contrib/booktabs/booktabs.pdf}{booktabs documentation}.
+
+\begin{LTXexample}
+\begin{table}
+\centering
+\caption{Simulation results for three
+estimators.}
+\label{tab:simulation-results}
+
+\begin{tabular}{lrrr}
+\toprule
+Method & Bias & SD & RMSE \\
+\midrule
+MLE    & 0.02 & 0.31 & 0.31 \\
+Ridge  & 0.05 & 0.22 & 0.24 \\
+Lasso  & 0.01 & 0.22 & 0.22 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{LTXexample}
 
 \section{Other stuff}
 
-\subsubsection*{Notes to one another}
+\subsubsection*{Do not ignore LaTeX errors and warnings}
 
-I like to define little color-coded shortcut macros so that authors can add little notes to each other.
-
-\pb{I think we should do x instead of y}
-
-\yl{what a great idea!}
+A document should compile cleanly before you share it with any collaborators. Almost all warnings indicate genuine problems: undefined references, doubly-defined references, missing citations, overfull boxes, package conflicts, etc. It doesn't matter if the PDF looks OK to you --- the warning is there for a reason and usually indicates a serious underlying problem that will only snowball, growing worse and worse the longer you take to fix it.
 
 \subsubsection*{Don't say ``real data''}
 
+Never title a section ``Real Data''. This tells the reader nothing about the application. Every dataset used in a scientific study is real. The purpose of an application is to demonstrate how the method addresses a substantive scientific question. Use descriptive titles and engage with the scientific context of the analysis.
+
+Good:
+
+\begin{quote}
+In Section 5, we apply our method to a gene expression study of breast cancer patients.
+\end{quote}
+
+Bad:
+
+\begin{quote}
+In Section 5, we apply our method to real data.
+\end{quote}
+
+\newpage
+
 \bibliographystyle{ims}
-\bibliography{template/ref}
+\bibliography{articles}
 
 \end{document}

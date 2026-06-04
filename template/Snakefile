@@ -1,11 +1,12 @@
 from pathlib import Path
 ms = "my-paper"
+cache = "../cache"
 
 rule pdf:
     input:
         f"{ms}.tex",
         "main.tex",
-        "commands.tex",
+        "math-traditional.tex",
         "ref.bib"
     output:
         f"build/{ms}.pdf"
@@ -18,7 +19,7 @@ rule pdf:
 rule supplement:
     input:
         "supplement.tex",
-        "commands.tex",
+        "math-traditional.tex",
         "ref.bib"
     output:
         f"supplement/supplement.pdf"
@@ -40,4 +41,22 @@ rule arxiv:
         cd arxiv
         latexmk --xelatex -output-directory=build -silent {ms}.tex
         texfot xelatex -interaction=nonstopmode -output-directory=build -synctex=1 {ms}.tex
+        """
+
+rule math:
+    output:
+        "math-traditional.tex"
+    shell:
+        "curl -O https://raw.githubusercontent.com/pbreheny/pb-latex/main/tex/math-traditional.tex"
+
+rule t_figure:
+    input:
+        f"{cache}/ex-100-2.csv",
+        "code/t-fig.r"
+    output:
+        "code/out/t-fig.pdf"
+    shell:
+        """
+        cd code
+        Rscript t-fig.r
         """

@@ -1,5 +1,2 @@
-template/build
-template/supplement
-template/.snakemake
 .dev/build
 .dev/.snakemake
