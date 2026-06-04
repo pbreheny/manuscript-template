@@ -1,0 +1,9 @@
+rule all:
+    input: "style-guide.tex"
+    output: "../style-guide.pdf"
+    shell:
+        """
+        curl https://raw.githubusercontent.com/pbreheny/pb-latex/main/tex/math-traditional.tex -o ../template/math-traditional.tex
+        latexmk --xelatex -output-directory=build style-guide.tex
+        cp build/style-guide.pdf ..
+        """

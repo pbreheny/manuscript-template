@@ -1,11 +1,5 @@
-*.pdf
-*.aux
-*.log
-*.lot
-*.lof
-*.blg
-*.toc
-!fig/*.pdf
-.snakemake
-build
-supplement
+template/build
+template/supplement
+template/.snakemake
+.dev/build
+.dev/.snakemake
