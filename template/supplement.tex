@@ -1,21 +1,33 @@
 \documentclass{article}
 \usepackage[left=0.5in,right=0.5in,bottom=0.75in,top=0.75in]{geometry}
 
-% Packages
-\usepackage{amsmath}
-\usepackage{amssymb}
+% Math
+\input{math-traditional}
 \usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem*{definition*}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem*{prop*}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem*{conjecture*}{Conjecture}
+
+% Tables, figures, and links
 \usepackage{graphicx}
-\graphicspath{{fig/}}
-\usepackage{natbib}
 \usepackage{hyperref}
-\hypersetup{colorlinks=true, citecolor=black, linkcolor=., urlcolor=cyan}
-\usepackage[shortlabels]{enumitem}
-\numberwithin{equation}{section}
+\hypersetup{colorlinks=true, citecolor=black, linkcolor=black, urlcolor=cyan}
+\usepackage{multicol}
+\usepackage{caption}
 \usepackage{booktabs}
 
-% Macros
-\input{commands}
+% References and enumeration
+\usepackage{natbib}
+\usepackage[shortlabels]{enumitem}
 
 % Notes to each other
 \newcommand{\pb}[1]{\textcolor{red}{#1}}
@@ -49,7 +61,7 @@ Most journals want the supplement to have simple S-style numbering (Figure S1, T
 
 If you prefer to separate the supplement into wrapper plus content, you can, although in my experience it isn't necessary. No one cares what format the supplement is in, so you can just keep a simple format and not worry about changing it.
 
-Citations work the same way as before. \citep{Tibshirani1996}
+Citations work the same way as before \citep{Tibshirani1996}.
 
 \bibliographystyle{ims}
 \bibliography{ref}

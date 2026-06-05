@@ -1,21 +1,37 @@
 \documentclass{article}
 \usepackage[left=0.5in,right=0.5in,bottom=0.75in,top=0.75in]{geometry}
 
-% Packages
-\usepackage{amsmath}
-\usepackage{amssymb}
+% Math
+\input{math-traditional}
 \usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem*{definition*}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem*{prop*}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem*{conjecture*}{Conjecture}
+
+% Tables, figures, and links
 \usepackage{graphicx}
-\graphicspath{{fig/}}
-\usepackage{natbib}
+\graphicspath{{code/out}}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, citecolor=black, linkcolor=black, urlcolor=cyan}
-\usepackage[shortlabels]{enumitem}
-\numberwithin{equation}{section}
+\usepackage{multicol}
+\usepackage{caption}
 \usepackage{booktabs}
+\makeatletter
+\def\input@path{{code/out/}}
+\makeatother
 
-% Macros
-\input{commands}
+% References and enumeration
+\usepackage{natbib}
+\usepackage[shortlabels]{enumitem}
 
 % Notes to each other
 \newcommand{\pb}[1]{\textcolor{red}{#1}}

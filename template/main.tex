@@ -1,149 +1,63 @@
-\section{Cross-references and citations}
+\emph{If you haven't already done so, please read the style guide.}
 
-\subsubsection*{Label naming conventions}
-
-Labels should:
-
-\begin{itemize}
-\item be lowercase
-\item use hyphens, not spaces or camelCase
-\item include a type prefix (\texttt{sec:}, \texttt{fig:}, \texttt{tab:}, \texttt{eq:}, \texttt{thm:}, etc.)
-\end{itemize}
-
-Good labels:
-
-\begin{itemize}
-\item \verb|\label{sec:methods-derivation}|
-\item \verb|\label{fig:simulation-results}|
-\item \verb|\label{eq:score-function}|
-\end{itemize}
-
-Bad labels:
-
-\begin{itemize}
-\item \verb|\label{Section:Methods}|
-\item \verb|\label{simulationResults}|
-\item \verb|\label{Table 1}|
-\end{itemize}
-
-\subsubsection*{Use \texttt{\textbackslash eqref} for equations}
-
-When referring to an equation, use \verb|\eqref{eq:score-function}|, not \verb|\ref{eq:score-function}|. Here's what they look like when typeset: equation~\eqref{eq:score-function} versus equation~\ref{eq:score-function}. The eqref version formats the reference as it appears in the actual equation (here, that's with parentheses, but the point is that if you change how equations look, the reference will always match the equation).
-
-\begin{equation}
-  \label{eq:score-function}
-  u(\bb) = \X \Tr \y - \X \Tr \X \bb
-\end{equation}
-
-\subsubsection*{Use nonbreaking spaces in references}
-
-Use \verb|Section~\ref{sec:methods}|, not \verb|Section \ref{sec:methods}|. The \verb|~| prevents awkward line breaks.
-
-\subsubsection*{Where to put citations?}
-
-This can be complicated. In general, citations should go at the end of a sentence, such as: Penalized regression methods are widely used in high-dimensional settings \citep{Hastie2009,Zou2005}.
-
-Every once in a while, the structure of a sentence requires a mid-sentence citation, such as: The lasso induces sparsity \citep{Tibshirani1996}, whereas ridge regression shrinks coefficients continuously \citep{Hoerl1970}. In that sentence, if you were to put both citations at the end, it would be ambiguous and confusing.
-
-But try to do this only when absolutely necessary, because it makes sentences less readable: The lasso \citep{Tibshirani1996} is widely used in high-dimensional regression \citep{Hastie2009} and has inspired numerous extensions \citep{Zou2005,Fan2001}. This sentence is choppy and hard to parse.
-
-\subsubsection*{\texttt{\textbackslash citep} versus \texttt{\textbackslash citet}}
-
-Use \verb|\citep{}| for parenthetical citations and \verb|\citet{}| when the author name appears grammatically in the sentence:
-
-\begin{itemize}
-\item Several approaches have been proposed \citep{Fan2001, Zou2005}.
-\item \citet{Zou2005} introduced the adaptive lasso.
-\end{itemize}
-
-Don't write sentences like this: In \citep{Zou2005}, the adaptive lasso was proposed. Or this: Zou \citep{Zou2005} proposed the adaptive lasso.
-
-\section{Mathematical writing and typesetting}
-
-\subsubsection*{General advice}
-
-\begin{itemize}
-\item Try to keep your notation clear and simple
-\item Avoid double-subscripts
-\item Avoid introducing symbols for quantities you only use once
-\item When defining something, give it both a technical and conceptual definition. For example: Let $L(\beta) = \sum_i \ell_i(\beta)$ denote the log-likelihood, which measures how well the value $\beta$ agrees with the data.
-\end{itemize}
-
-\subsubsection*{Math mode is for mathematical symbols, not ordinary text}
-
-Unadorned letters in math mode are interpreted as variables. If you write \verb|AIC| in math mode, this will be typeset as $AIC$: the variable $A$ times the variable $I$ times the variable $C$. If you need AIC in an equation, use \verb|\text{AIC}|, \verb|\text{CV}|, and so on.
-
-Similarly, don't write \verb|log|, \verb|exp|, \verb|max|, and so on. There are precisely defined commands for all these mathematical operators that preserve correct spacing and typography: \verb|\log|, \verb|\exp|, \verb|\max|. Compare the following:
-
-\begin{align*}
-  \text{Bad}: exp x = max_y log y \\
-  \text{Good}: \exp x = \max_y \log y \\
-\end{align*}
-
-\subsubsection*{Don't type the pipe}
-
-Use \verb|\mid|, \verb|\abs|, and \verb|\norm|. Never type \verb/|/ directly.
-
-\begin{align*}
-  \text{Bad}: |x| = ||\y|| | z \\
-  \text{Good}: \abs{x} = \norm{\y} \mid z
-\end{align*}
-
-\subsubsection*{Equations are part of the sentence}
-
-Equations should follow ordinary punctuation rules.
-
-If the equation ends a sentence, it needs a period, as in
-
-$$ L(\beta) = \sum_{i=1}^n \ell_i(\beta). $$
-
-If the equation ends a clause, as in
-
-$$ L(\beta) = \sum_{i=1}^n \ell_i(\beta), $$
-
-it needs a comma. Displayed equations are not punctuation-free objects floating outside the grammar of the paragraph.
-
-\section{Typography and punctuation}
-
-\subsubsection*{Dashes and hyphens}
-
-\begin{itemize}
-\item Use a single \verb|-| for a hyphenated word like well-known
-\item Use two dashes \verb|--| for ranges and relationships, like pages 10--15 and bias--variance tradeoff
-\item Use three dashes \verb|---| for interruptions and emphasis, like saying that bias --- while traditionally considered bad --- can often be useful
-\end{itemize}
-
-\subsubsection*{LaTeX requires directional quotes}
-
-\begin{itemize}
-\item Good: \verb|``quoted text''| $\longrightarrow$ ``quoted text''
-\item Bad: \verb|"quoted text"| $\longrightarrow$ "quoted text" (note that the quotes on the left are backwards)
-\end{itemize}
-
-\section{Figures and tables}
-
-Every figure and table should:
-
-\begin{itemize}
-\item have a caption
-\item have a label
-\item be referenced in the text (using the label, not something like ``see the figure below'')
-\end{itemize}
-
-\subsubsection*{Structure of captions and labels}
-
-need a reproducible example here
-
-\section{Other stuff}
-
-\subsubsection*{Notes to one another}
-
-I like to define little color-coded shortcut macros so that authors can add little notes to each other.
+\section{Introduction}
+\label{sec:intro}
 
 \pb{I think we should do x instead of y}
 
 \yl{what a great idea!}
 
-\subsubsection*{Don't say ``real data''}
+\section{Background and related work}
+\label{sec:background}
 
+\emph{Discuss prior work, notation, assumptions, and technical background needed for the proposed method.}
+
+\emph{Replace section title with something more specific, like ``Existing approaches to sparse survival modeling''.}
+
+\citet{Tibshirani1996} proposed the lasso. Somebody else proposed ridge regression \citep{Hoerl1970}.
+
+\section{Proposed method}
+\label{sec:method}
+
+\emph{Describe your contribution here.}
+
+\emph{Replace section title with something more specific, like ``Additive group MCP for Cox models''.}
+
+What's $\bbh$? See \eqref{eq:model}:
+
+\begin{equation}
+  \label{eq:model}
+  \y = \X \bb + \bvep
+\end{equation}
+
+\section{Theoretical results}
+\label{sec:theory}
+
+\emph{If your paper doesn't have theoretical results, remove this section.}
+
+\section{Simulation studies}
+\label{sec:sim}
+
+\begin{figure}
+  \includegraphics[width=0.5\linewidth]{t-fig.pdf}
+  \caption{Student's $t$-test (which assumes equal variance) suffers from a lack of power when the large-variance group is has more observations than the small-variance group.}
+  \label{fig:power}
+\end{figure}
+
+\begin{table}
+\centering
+\caption{Type 1 error for Student and Welch $t$-tests. Ratio ($n_1:n_2$) displays the sample size of the low-variance and high-variance groups (low-variance first). Student's test suffers from inflated Type I error when the small-variance group is larger.}
+\label{tab:type-1-error}
+\input{t-tab}
+\end{table}
+
+\section{Application}
+\label{sec:application}
+
+\emph{Replace section title with something more specific, like ``Gene expression study of breast cancer patients''.}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\section*{Acknowledgments}
 

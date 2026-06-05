@@ -1,5 +1,6 @@
 build
 supplement
+arxiv
 .snakemake
-code/.Rproj.user
+.Rproj.user
 code/out

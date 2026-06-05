@@ -2,6 +2,12 @@ from pathlib import Path
 ms = "my-paper"
 cache = "../cache"
 
+rule all:
+    input:
+        f"build/{ms}.pdf",
+        "supplement/supplement.pdf",
+        f"arxiv/build/{ms}.pdf"
+
 rule pdf:
     input:
         f"{ms}.tex",
@@ -31,25 +37,20 @@ rule supplement:
 
 rule arxiv:
     input:
-        f"build/{ms}.pdf"
+        f"build/{ms}.pdf",
+        "code/singletex.r"
     output:
         f"arxiv/build/{ms}.pdf"
     shell:
         f"""
         mkdir -p arxiv/build
-        singletex {ms}.tex arxiv/{ms}.tex
+        Rscript code/singletex.r {ms}.tex arxiv/{ms}.tex
         cd arxiv
         latexmk --xelatex -output-directory=build -silent {ms}.tex
         texfot xelatex -interaction=nonstopmode -output-directory=build -synctex=1 {ms}.tex
         """
 
-rule math:
-    output:
-        "math-traditional.tex"
-    shell:
-        "curl -O https://raw.githubusercontent.com/pbreheny/pb-latex/main/tex/math-traditional.tex"
-
-rule t_figure:
+rule t_fig:
     input:
         f"{cache}/ex-100-2.csv",
         "code/t-fig.r"
@@ -60,3 +61,21 @@ rule t_figure:
         cd code
         Rscript t-fig.r
         """
+
+rule t_tab:
+    input:
+        f"{cache}/ex-100-2.csv",
+        "code/t-tab.r"
+    output:
+        "code/out/t-tab.tex"
+    shell:
+        """
+        cd code
+        Rscript t-tab.r
+        """
+
+rule math:
+    output:
+        "math-traditional.tex"
+    shell:
+        "curl -O https://raw.githubusercontent.com/pbreheny/pb-latex/main/tex/math-traditional.tex"
