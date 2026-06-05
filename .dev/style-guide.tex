@@ -21,6 +21,14 @@
 % Macros
 \input{math-unicode}
 
+% Icons
+\usepackage{fontawesome7}
+\definecolor{goodcolor}{HTML}{2E7D32}
+\newcommand{\xmark}{\textcolor{red}{\faXmark}}
+\newcommand{\cmark}{\textcolor{goodcolor}{\faCheck}}
+\newcommand{\bad}{\xmark \; \textbf{Bad:}}
+\newcommand{\good}{\cmark \; \textbf{Good:}}
+
 % Notes to each other
 \newcommand{\pb}[1]{\textcolor{red}{#1}}
 \newcommand{\yl}[1]{\textcolor{blue}{#1}}
@@ -29,6 +37,12 @@
 \title{Style guide / Common \LaTeX \, mistakes}
 \author{Patrick Breheny \\ Department of Biostatistics \\ University of Iowa}
 \date{\today}
+
+% Move title up a bit
+\usepackage{titling}
+\pretitle{\begin{center} \LARGE \bf}
+  \posttitle{\par\end{center}\vskip 0.5em}
+\setlength{\droptitle}{-50pt}
 
 \begin{document}
 
@@ -46,7 +60,7 @@ Labels should:
 \item include a type prefix (\texttt{sec:}, \texttt{fig:}, \texttt{tab:}, \texttt{eq:}, \texttt{thm:}, etc.)
 \end{itemize}
 
-Good labels:
+\good
 
 \begin{itemize}
 \item \verb|\label{sec:methods-derivation}|
@@ -54,7 +68,7 @@ Good labels:
 \item \verb|\label{eq:score-function}|
 \end{itemize}
 
-Bad labels:
+\bad
 
 \begin{itemize}
 \item \verb|\label{Section:Methods}|
@@ -66,13 +80,13 @@ Bad labels:
 
 When referring to an equation, use \verb|\eqref{eq:score-function}|, not \verb|\ref{eq:score-function}|.
 
-Good:
+\good
 
 \begin{LTXexample}
 equation~\eqref{eq:score-function}
 \end{LTXexample}
 
-Bad:
+\bad
 
 \begin{LTXexample}
 equation~\ref{eq:score-function}
@@ -109,7 +123,7 @@ This sentence is choppy and hard to parse.
 
 Use \verb|\citep{}| for parenthetical citations and \verb|\citet{}| when the author name appears grammatically in the sentence.
 
-Good:
+\good
 
 \begin{LTXexample}
 Several approaches have been proposed
@@ -119,7 +133,7 @@ Several approaches have been proposed
 lasso.
 \end{LTXexample}
 
-Bad:
+\bad
 
 \begin{LTXexample}
 In \citep{Zou2005}, the adaptive lasso was
@@ -133,22 +147,7 @@ lasso.
 
 BibTeX styles often convert article titles to sentence case. Braces protect capital letters and acronyms that must remain capitalized.
 
-Bad:
-
-\begin{center}
-\begin{minipage}{0.46\textwidth}
-\begin{lstlisting}
-title = {Analysis of RNA-Seq Data}
-\end{lstlisting}
-\end{minipage}
-\hfill
-\begin{minipage}{0.46\textwidth}
-  \vspace{0.1em}
-Analysis of rna-seq data
-\end{minipage}
-\end{center}
-
-Good:
+\good
 
 \begin{center}
 \begin{minipage}{0.46\textwidth}
@@ -159,7 +158,22 @@ title = {Analysis of {RNA}-Seq Data}
 \hfill
 \begin{minipage}{0.46\textwidth}
   \vspace{0.1em}
-Analysis of RNA-seq data
+  \fbox{Analysis of RNA-seq data}
+\end{minipage}
+\end{center}
+
+\bad
+
+\begin{center}
+\begin{minipage}{0.46\textwidth}
+\begin{lstlisting}
+title = {Analysis of RNA-Seq Data}
+\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.46\textwidth}
+  \vspace{0.1em}
+  \fbox{Analysis of rna-seq data}
 \end{minipage}
 \end{center}
 
@@ -179,14 +193,14 @@ Unadorned letters in math mode are interpreted as variables. If you write \verb|
 
 Similarly, don't write \verb|log|, \verb|exp|, \verb|max|, and so on. There are precisely defined commands for all these mathematical operators that preserve correct spacing and typography: \verb|\log|, \verb|\exp|, \verb|\max|.
 
-Good:
+\good
 
 \begin{LTXexample}
 $ \text{AIC} = -2\ell + 2p $ \\
 $ \exp x = \max_y \log y $
 \end{LTXexample}
 
-Bad:
+\bad
 
 \begin{LTXexample}
 $ AIC = -2\ell + 2p $ \\
@@ -197,16 +211,16 @@ $ exp x = max_y log y $
 
 Use \verb|\mid|, \verb|\abs|, and \verb|\norm|. Never type \verb/|/ directly.
 
-Good:
+\good
 
 \begin{LTXexample}
-$ \abs{x} = \norm{\y} \mid z $
+$ \abs{x} > \Pr(\norm{\y} \mid z $)
 \end{LTXexample}
 
-Bad:
+\bad
 
 \begin{LTXexample}
-$ |x| = ||\y|| | z $
+$ |x| > \Pr(||\y|| | z $)
 \end{LTXexample}
 
 \subsubsection*{Equations are part of the sentence}
@@ -248,19 +262,41 @@ can often be useful.
 
 \subsubsection*{LaTeX requires directional quotes}
 
-Good:
+\good
 
 \begin{LTXexample}
 ``quoted text''
 \end{LTXexample}
 
-Bad:
+\bad
 
 \begin{LTXexample}
 "quoted text"
 \end{LTXexample}
 
 Note that the quotes on the left are backwards in the ``bad'' example.
+
+\section{Miscellaneous}
+
+\subsubsection*{Do not ignore LaTeX errors and warnings}
+
+A document should compile cleanly before you share it with any collaborators. Almost all warnings indicate genuine problems: undefined references, doubly-defined references, missing citations, overfull boxes, package conflicts, etc. It doesn't matter if the PDF looks OK to you --- the warning is there for a reason and usually indicates a serious underlying problem that will only snowball, growing worse and worse the longer you take to fix it.
+
+\subsubsection*{Don't say ``real data''}
+
+Never title a section ``Real Data''. This tells the reader nothing about the application. Every dataset used in a scientific study is real. The purpose of an application is to demonstrate how the method addresses a substantive scientific question. Use descriptive titles and engage with the scientific context of the analysis.
+
+\good
+
+\begin{quote}
+In Section 5, we apply our method to a gene expression study of breast cancer patients.
+\end{quote}
+
+\bad
+
+\begin{quote}
+In Section 5, we apply our method to real data.
+\end{quote}
 
 \section{Figures and tables}
 
@@ -279,10 +315,10 @@ The call to \verb|\includegraphics{}| should not include the directory path --- 
 \begin{LTXexample}
 \begin{figure}
   \includegraphics[width=\linewidth]{t-fig.pdf}
-  \caption{The equal variance $t$-test 
-  suffers from a lack of power when the
-  large-variance group has larger sample
-  size.}
+  \caption{Student's $t$-test (which assumes
+  equal variance) suffers from a lack of power
+  when the large-variance group is has more
+  observations than the small-variance group.}
   \label{fig:t-variance}
 \end{figure}
 \end{LTXexample}
@@ -293,7 +329,7 @@ The call to \verb|\includegraphics{}| should not include the directory path --- 
   \item Use \verb|\toprule|, \verb|\midrule|, and \verb|\bottomrule| (from the \texttt{booktabs} package)
   \item Never use vertical rules.
   \item Align numbers consistently.
-  \item Report only enough digits to convey meaningful information. No one could possibly care that the MSE was 2.3455 instead of 2.35. Every digit must justify its existence. Extra digits consume space, distract the reader, and almost never affect the scientific conclusion. When in doubt, round more aggressively.
+  \item Report only enough digits to convey meaningful information. No one could possibly care that the type 1 error rate was 0.1121 instead of 0.11. Every digit must justify its existence. Extra digits consume space, distract the reader, and almost never affect the scientific conclusion. When in doubt, round more aggressively.
 \end{enumerate}
 
 For more on how to lay out a professional-looking table, see the \href{https://mirrors.ibiblio.org/pub/mirrors/CTAN/macros/latex/contrib/booktabs/booktabs.pdf}{booktabs documentation}.
@@ -301,43 +337,46 @@ For more on how to lay out a professional-looking table, see the \href{https://m
 \begin{LTXexample}
 \begin{table}
 \centering
-\caption{Simulation results for three
-estimators.}
+\caption{Type 1 error for Student and Welch
+$t$-tests. Ratio ($n_1:n_2$) displays the sample
+size of the low-variance and high-variance
+groups (low-variance first). Student's test
+suffers from inflated Type I error when the
+small-variance group is larger.}
 \label{tab:simulation-results}
 
-\begin{tabular}{lrrr}
+\begin{tabular}{lrr}
 \toprule
-Method & Bias & SD & RMSE \\
+Ratio & Student & Welch\\
 \midrule
-MLE    & 0.02 & 0.31 & 0.31 \\
-Ridge  & 0.05 & 0.22 & 0.24 \\
-Lasso  & 0.01 & 0.22 & 0.22 \\
+4:16 & 0.03 & 0.06\\
+10:10 & 0.05 & 0.05\\
+16:4 & 0.14 & 0.06\\
 \bottomrule
 \end{tabular}
+
 \end{table}
 \end{LTXexample}
 
-\section{Other stuff}
+\subsubsection*{Tables should be reproducible}
 
-\subsubsection*{Do not ignore LaTeX errors and warnings}
+The above example is somewhat misleading: in most cases, you shouldn't be directly typing the table contents. The table contents should be automatically generated, typically from \verb|knitr::kable("latex", booktabs = TRUE)|, then use \verb|\input{}|, as in the following, where the output from \verb|kable()| has been saved as \verb|t-tab.tex|:
 
-A document should compile cleanly before you share it with any collaborators. Almost all warnings indicate genuine problems: undefined references, doubly-defined references, missing citations, overfull boxes, package conflicts, etc. It doesn't matter if the PDF looks OK to you --- the warning is there for a reason and usually indicates a serious underlying problem that will only snowball, growing worse and worse the longer you take to fix it.
+\begin{LTXexample}
+\begin{table}
+\centering
+\caption{Type 1 error for Student and Welch
+$t$-tests. Ratio ($n_1:n_2$) displays the sample
+size of the low-variance and high-variance
+groups (low-variance first). Student's test
+suffers from inflated Type I error when the
+small-variance group is larger.}
+\label{tab:same-simulation-results}
+\input{t-tab}
+\end{table}
+\end{LTXexample}
 
-\subsubsection*{Don't say ``real data''}
-
-Never title a section ``Real Data''. This tells the reader nothing about the application. Every dataset used in a scientific study is real. The purpose of an application is to demonstrate how the method addresses a substantive scientific question. Use descriptive titles and engage with the scientific context of the analysis.
-
-Good:
-
-\begin{quote}
-In Section 5, we apply our method to a gene expression study of breast cancer patients.
-\end{quote}
-
-Bad:
-
-\begin{quote}
-In Section 5, we apply our method to real data.
-\end{quote}
+The output is exactly the same, but the point is that if you alter or re-run the simulation, the document is guaranteed to track those changes.
 
 \newpage
 
