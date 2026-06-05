@@ -13,7 +13,9 @@ rule pdf:
         f"{ms}.tex",
         "main.tex",
         "math-traditional.tex",
-        "ref.bib"
+        "ref.bib",
+        "code/out/t-fig.pdf",
+        "code/out/t-tab.tex"
     output:
         f"build/{ms}.pdf"
     shell:

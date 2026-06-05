@@ -1,2 +1,3 @@
 .dev/build
 .dev/.snakemake
+template/math-traditional.tex

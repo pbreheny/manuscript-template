@@ -9,6 +9,14 @@
 * `style-guide.pdf`: This describes a collection of "do"s and "don't"s with respect to writing and using LaTeX, compiled from years of observing students making the same mistakes.
 * `cache`: This represents results from a simulation study that the manuscript will use. It would typically live in some other directory outside the manuscript. See the [research template](https://github.com/pbreheny/reproducible-template/) for more on the integration between manuscripts and research.
 
+To see the power of Snakemake, go to the `template` directory, run
+
+``` bash
+snakemake
+```
+
+And it will build all the necessary figures and tables, compile the document, compile the supplement, create a version for arXiv, and compile that too.
+
 ## Installing LaTeX
 
 The easiest, simplest way to get LaTeX up and running is with [TinyTeX](https://github.com/rstudio/tinytex-releases) (via R):
