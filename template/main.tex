@@ -39,7 +39,7 @@ What's $\bbh$? See \eqref{eq:model}:
 \label{sec:sim}
 
 \begin{figure}
-  \includegraphics[width=0.5\linewidth]{t-fig.pdf}
+  \includegraphics[width=0.5\linewidth]{power.pdf}
   \caption{Student's $t$-test (which assumes equal variance) suffers from a lack of power when the large-variance group is has more observations than the small-variance group.}
   \label{fig:power}
 \end{figure}
@@ -47,8 +47,8 @@ What's $\bbh$? See \eqref{eq:model}:
 \begin{table}
 \centering
 \caption{Type 1 error for Student and Welch $t$-tests. Ratio ($n_1:n_2$) displays the sample size of the low-variance and high-variance groups (low-variance first). Student's test suffers from inflated Type I error when the small-variance group is larger.}
-\label{tab:type-1-error}
-\input{t-tab}
+\label{tab:error-rate}
+\input{error-rate}
 \end{table}
 
 \section{Application}

@@ -14,8 +14,8 @@ rule pdf:
         "main.tex",
         "math-traditional.tex",
         "ref.bib",
-        "code/out/t-fig.pdf",
-        "code/out/t-tab.tex"
+        "results/power.pdf",
+        "results/error-rate.tex"
     output:
         f"build/{ms}.pdf"
     shell:
@@ -52,28 +52,28 @@ rule arxiv:
         texfot xelatex -interaction=nonstopmode -output-directory=build -synctex=1 {ms}.tex
         """
 
-rule t_fig:
+rule power:
     input:
         f"{cache}/ex-100-2.csv",
-        "code/t-fig.r"
+        "code/power.r"
     output:
-        "code/out/t-fig.pdf"
+        "results/power.pdf"
     shell:
         """
         cd code
-        Rscript t-fig.r
+        Rscript power.r
         """
 
-rule t_tab:
+rule error_rate:
     input:
         f"{cache}/ex-100-2.csv",
-        "code/t-tab.r"
+        "code/error-rate.r"
     output:
-        "code/out/t-tab.tex"
+        "results/error-rate.tex"
     shell:
         """
         cd code
-        Rscript t-tab.r
+        Rscript error-rate.r
         """
 
 rule math:

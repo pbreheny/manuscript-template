@@ -1,6 +1,7 @@
+.snakemake
+.Rproj.user
+
 build
 supplement
 arxiv
-.snakemake
-.Rproj.user
-code/out
+results
