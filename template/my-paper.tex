@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage[left=0.5in,right=0.5in,bottom=0.75in,top=0.75in]{geometry}
+\frenchspacing
 
 % Math
 \input{math-traditional}
@@ -39,18 +40,19 @@
 
 % Define abstract environment
 \renewcommand{\abstract}[1]{
- \centerline{
- \begin{minipage}{0.7\linewidth}
- \hrule
- \vskip 0.1in
+  \centerline{
+  \begin{minipage}{0.7\linewidth}
+  \hrule
+  \vspace{0.1in}
   \begin{center}
-    {\bf Abstract}
+  {\bf Abstract}
   \end{center}
   #1
- \vskip 0.1in
- \hrule
- \end{minipage}}
- \vskip 0.3in}
+  \vspace{0.1in}
+  \hrule
+  \end{minipage}}
+  \vspace{0.3in}
+}
 
 % Title/author/date
 \title{Title of the paper}

@@ -40,7 +40,8 @@ rule supplement:
 rule arxiv:
     input:
         f"build/{ms}.pdf",
-        "code/singletex.r"
+        "code/singletex.r",
+        "math-traditional.tex"
     output:
         f"arxiv/build/{ms}.pdf"
     shell:
