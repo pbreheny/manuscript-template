@@ -1,7 +1,7 @@
 .snakemake
 .Rproj.user
 
-build
+my-paper
 supplement
 arxiv
 results

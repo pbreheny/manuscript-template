@@ -62,7 +62,7 @@ file.copy(glue("{fig_dir}/{fig}"), dirname(opt$outfile)) |>
 old <- new
 stem <- tools::file_path_sans_ext(opt$infile)
 ind <- grep("\\\\bibliography\\{", old)
-buf <- readLines(glue("build/{stem}.bbl"))
+buf <- readLines(glue("{stem}/{stem}.bbl"))
 new <- c(old[1:(ind - 1)], buf, old[-(1:ind)])
 
 # Write tex
