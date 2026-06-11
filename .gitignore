@@ -1,5 +1,2 @@
-.dev/build
+.dev/style-guide
 .dev/.snakemake
-
-template/math-traditional.tex
-template/smallcap.bst

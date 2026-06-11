@@ -3,7 +3,7 @@
 
 % Packages
 \usepackage{graphicx}
-\graphicspath{{../template/code/out/}}
+\graphicspath{{../template/results}}
 \usepackage{natbib}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true, citecolor=black, linkcolor=black, urlcolor=cyan}
@@ -26,8 +26,8 @@
 \definecolor{goodcolor}{HTML}{2E7D32}
 \newcommand{\xmark}{\textcolor{red}{\faXmark}}
 \newcommand{\cmark}{\textcolor{goodcolor}{\faCheck}}
-\newcommand{\bad}{\xmark \; \textbf{Bad:}}
-\newcommand{\good}{\cmark \; \textbf{Good:}}
+\newcommand{\bad}{\xmark\; \textbf{Bad:}}
+\newcommand{\good}{\cmark\; \textbf{Good:}}
 
 % Notes to each other
 \newcommand{\pb}[1]{\textcolor{red}{#1}}
@@ -314,12 +314,12 @@ The call to \verb|\includegraphics{}| should not include the directory path --- 
 
 \begin{LTXexample}
 \begin{figure}
-  \includegraphics[width=\linewidth]{t-fig.pdf}
+  \includegraphics[width=\linewidth]{power}
   \caption{Student's $t$-test (which assumes
   equal variance) suffers from a lack of power
   when the large-variance group is has more
   observations than the small-variance group.}
-  \label{fig:t-variance}
+  \label{fig:power}
 \end{figure}
 \end{LTXexample}
 
@@ -343,7 +343,7 @@ size of the low-variance and high-variance
 groups (low-variance first). Student's test
 suffers from inflated Type I error when the
 small-variance group is larger.}
-\label{tab:simulation-results}
+\label{tab:error-rate}
 
 \begin{tabular}{lrr}
 \toprule
@@ -371,8 +371,8 @@ size of the low-variance and high-variance
 groups (low-variance first). Student's test
 suffers from inflated Type I error when the
 small-variance group is larger.}
-\label{tab:same-simulation-results}
-\input{t-tab}
+\label{tab:same-error-rate}
+\input{error-rate}
 \end{table}
 \end{LTXexample}
 
@@ -380,7 +380,7 @@ The output is exactly the same, but the point is that if you alter or re-run the
 
 \newpage
 
-\bibliographystyle{ims}
-\bibliography{articles}
+\bibliographystyle{smallcap}
+\bibliography{ref}
 
 \end{document}

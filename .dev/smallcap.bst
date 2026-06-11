@@ -1,0 +1,1 @@
+../template/smallcap.bst

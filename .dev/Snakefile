@@ -3,6 +3,18 @@ rule all:
     output: "../style-guide.pdf"
     shell:
         """
-        latexmk --xelatex -output-directory=build style-guide.tex
-        cp build/style-guide.pdf ..
+        latexmk -xelatex -interaction=nonstopmode -output-directory=style-guide style-guide.tex
+        cp style-guide/style-guide.pdf ..
         """
+
+rule math:
+    output:
+        "../template/math-traditional.tex"
+    shell:
+        f"curl https://raw.githubusercontent.com/pbreheny/pb-latex/main/tex/math-traditional.tex -o {output}"
+
+rule bst:
+    output:
+        "../template/smallcap.bst"
+    shell:
+        f"curl https://raw.githubusercontent.com/pbreheny/pb-latex/main/bst/smallcap.bst -o {output}"

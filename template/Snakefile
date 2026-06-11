@@ -20,10 +20,7 @@ rule pdf:
     output:
         f"{ms}/{ms}.pdf"
     shell:
-        f"""
-        latexmk --xelatex -output-directory={ms} -silent {ms}.tex
-	texfot xelatex -interaction=nonstopmode -output-directory={ms} -synctex=1 {ms}.tex
-        """
+        f"latexmk --xelatex -interaction=nonstopmode -output-directory={ms} {ms}.tex"
 
 rule supplement:
     input:
@@ -32,12 +29,9 @@ rule supplement:
         "ref.bib",
         "smallcap.bst"
     output:
-        f"supplement/supplement.pdf"
+        "supplement/supplement.pdf"
     shell:
-        f"""
-        latexmk --xelatex -output-directory=supplement -silent supplement.tex
-	texfot xelatex -interaction=nonstopmode -output-directory=supplement -synctex=1 supplement.tex
-        """
+        "latexmk --xelatex -interaction=nonstopmode -output-directory=supplement supplement.tex"
 
 rule arxiv:
     input:
@@ -51,8 +45,7 @@ rule arxiv:
         mkdir -p arxiv/build
         Rscript code/singletex.r {ms}.tex arxiv/{ms}.tex
         cd arxiv
-        latexmk --xelatex -output-directory=build -silent {ms}.tex
-        texfot xelatex -interaction=nonstopmode -output-directory=build -synctex=1 {ms}.tex
+        latexmk --xelatex -interaction=nonstopmode -output-directory=build {ms}.tex
         """
 
 rule power:
@@ -78,15 +71,3 @@ rule error_rate:
         cd code
         Rscript error-rate.r
         """
-
-rule math:
-    output:
-        "math-traditional.tex"
-    shell:
-        "curl -O https://raw.githubusercontent.com/pbreheny/pb-latex/main/tex/math-traditional.tex"
-
-rule bst:
-    output:
-        "smallcap.bst"
-    shell:
-        "curl -O https://raw.githubusercontent.com/pbreheny/pb-latex/main/bst/smallcap.bst"
