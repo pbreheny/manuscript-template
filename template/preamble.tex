@@ -1,0 +1,59 @@
+\usepackage[left=0.5in,right=0.5in,bottom=0.75in,top=0.75in]{geometry}
+\frenchspacing
+
+% Tables, figures, and links
+\usepackage{graphicx}
+\graphicspath{{results}}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, citecolor=black, linkcolor=black, urlcolor=cyan}
+\usepackage{multicol}
+\usepackage{caption}
+\usepackage{booktabs}
+\makeatletter
+\def\input@path{{results/}}
+\makeatother
+
+% References and enumeration
+\usepackage{natbib}
+\usepackage[shortlabels]{enumitem}
+
+% Notes to each other
+\newcommand{\pb}[1]{\textcolor{red}{#1}}
+\newcommand{\yl}[1]{\textcolor{blue}{#1}}
+
+% Define abstract environment
+\renewenvironment{abstract} {
+  \begin{center}
+    \begin{minipage}{0.7\linewidth}
+      \hrule
+      \vspace{0.1in}
+
+      \begin{center}
+        \textbf{Abstract}
+      \end{center}
+    }
+    {
+      \vspace{0.1in}
+      \hrule
+    \end{minipage}
+  \end{center}
+
+  \vspace{0.3in}
+}
+
+% Math
+\input{math-traditional}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+\newtheorem*{definition*}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem*{prop*}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem*{conjecture*}{Conjecture}
+

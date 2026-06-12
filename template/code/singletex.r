@@ -1,45 +1,46 @@
-#!/usr/bin/env Rscript
+#' Create a "flat" tex file (self-contained, except for figures)
+#'
+#' Fills in input statements, fig/ references, bibliography, etc., so that the
+#' resulting tex file is portable and can be compiled anywhere with no
+#' additional input files.
+#'
+#' Usage:
+#'     Rscript code/singletex.r my-paper.tex arxiv/my-paper.tex
+#'
+#' * Run from manuscript home
+#' * First argument is wrapper file
+#' * Second argument is where you want the flat tex file to be
 suppressMessages({
-  library(docopt)
   library(stringr)
   library(glue)
 })
-doc <- "Create a \"flat\" tex file
 
-Usage: singletex <infile> <outfile> [-h]
-
-Fills in input statements, fig/ references, bibliography, etc., so that the
-resulting tex file (output to stdin) is portable and can be
-compiled anywhere with no additional input files.
-
-Arguments:
-  infile     Input .tex file (manuscript.tex)
-  outfile    Output .tex file (sub/arxiv/manuscript.tex)
-
-Options:
-  -h         Show this help screen"
-opt <- docopt(doc)
-
-new <- readLines(opt$infile)
+# Process arguments
+opt <- commandArgs(TRUE)
+infile <- opt[[1]]
+outfile <- opt[[2]]
 
 add_ext <- function(path, ext) {
   ifelse(str_detect(path, fixed(".")), path, glue("{path}.{ext}"))
 }
 
 # Determine graphics path
-fig_dir_line <- grep("graphicspath", new)
-if (length(fig_dir_line)) {
-  fig_dir_line <- grep("graphicspath", new)
-  fig_dir <- gsub(".*\\{\\{([^\\}]+)\\}\\}", "\\1", new[fig_dir_line], perl = TRUE)
+for (texfile in list.files(pattern = "*.tex", full.names = TRUE)) {
+  tex = readLines(texfile)
+  path_line <- grep("graphicspath", tex, value = TRUE)
+  if (length(path_line) != 0) break
 }
+fig_dir <- gsub(r"(.*\{\{([^\}]+)\}\})", "\\1", path_line, perl = TRUE)
 
 # Scan for inputs
+new <- readLines(infile)
 repeat {
   ind <- grep("\\input\\{", new)[1]
   if (is.na(ind)) break
   old <- new
   filename <- str_replace(old[ind], fixed("}"), "") |>
     str_replace(fixed("\\input{"), "") |>
+    trimws() |>
     add_ext("tex")
   if (file.exists(filename)) {
     buf <- readLines(filename)
@@ -55,15 +56,15 @@ repeat {
 fig_lines <- grep("^[^%].*includegraphics", new, value = TRUE)
 fig <- gsub("[^\\{]+\\{([^\\}]+)\\}.*", "\\1", fig_lines, perl = TRUE) |>
   add_ext("pdf")
-file.copy(glue("{fig_dir}/{fig}"), dirname(opt$outfile)) |>
+file.copy(glue("{fig_dir}/{fig}"), dirname(outfile)) |>
   invisible()
 
 # Bibliography
 old <- new
-stem <- tools::file_path_sans_ext(opt$infile)
+stem <- tools::file_path_sans_ext(infile)
 ind <- grep("\\\\bibliography\\{", old)
 buf <- readLines(glue("{stem}/{stem}.bbl"))
 new <- c(old[1:(ind - 1)], buf, old[-(1:ind)])
 
 # Write tex
-writeLines(new, opt$outfile)
+writeLines(new, outfile)

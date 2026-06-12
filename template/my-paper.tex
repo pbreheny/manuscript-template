@@ -1,70 +1,18 @@
 \documentclass{article}
-\usepackage[left=0.5in,right=0.5in,bottom=0.75in,top=0.75in]{geometry}
-\frenchspacing
-
-% Math
-\input{math-traditional}
-\usepackage{amsthm}
-\newtheorem{definition}{Definition}
-\newtheorem*{definition*}{Definition}
-\newtheorem{theorem}{Theorem}
-\newtheorem*{theorem*}{Theorem}
-\newtheorem{prop}{Proposition}
-\newtheorem*{prop*}{Proposition}
-\newtheorem{lemma}{Lemma}
-\newtheorem*{lemma*}{Lemma}
-\newtheorem{corollary}{Corollary}
-\newtheorem*{corollary*}{Corollary}
-\newtheorem{conjecture}{Conjecture}
-\newtheorem*{conjecture*}{Conjecture}
-
-% Tables, figures, and links
-\usepackage{graphicx}
-\graphicspath{{results}}
-\usepackage{hyperref}
-\hypersetup{colorlinks=true, citecolor=black, linkcolor=black, urlcolor=cyan}
-\usepackage{multicol}
-\usepackage{caption}
-\usepackage{booktabs}
-\makeatletter
-\def\input@path{{results/}}
-\makeatother
-
-% References and enumeration
-\usepackage{natbib}
-\usepackage[shortlabels]{enumitem}
-
-% Notes to each other
-\newcommand{\pb}[1]{\textcolor{red}{#1}}
-\newcommand{\yl}[1]{\textcolor{blue}{#1}}
-
-% Define abstract environment
-\renewcommand{\abstract}[1]{
-  \centerline{
-  \begin{minipage}{0.7\linewidth}
-  \hrule
-  \vspace{0.1in}
-  \begin{center}
-  {\bf Abstract}
-  \end{center}
-  #1
-  \vspace{0.1in}
-  \hrule
-  \end{minipage}}
-  \vspace{0.3in}
-}
+\input{preamble}
 
 % Title/author/date
 \title{Title of the paper}
 \author{Patrick Breheny\\Department of Biostatistics\\University of Iowa}
 \date{\today}
 
-
 \begin{document}
 
 \maketitle
 
-\abstract{Abstract goes here.}
+\begin{abstract}
+  \input{abstract}
+\end{abstract}
 
 \input{main}
 
