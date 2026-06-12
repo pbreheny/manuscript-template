@@ -20,7 +20,7 @@ rule pdf:
     output:
         f"{ms}/{ms}.pdf"
     shell:
-        f"latexmk --xelatex -interaction=nonstopmode -output-directory={ms} {ms}.tex"
+        f"latexmk --xelatex -interaction=batchmode -output-directory={ms} {ms}.tex"
 
 rule supplement:
     input:
@@ -31,7 +31,7 @@ rule supplement:
     output:
         "supplement/supplement.pdf"
     shell:
-        "latexmk --xelatex -interaction=nonstopmode -output-directory=supplement supplement.tex"
+        "latexmk --xelatex -interaction=batchmode -output-directory=supplement supplement.tex"
 
 rule arxiv:
     input:
@@ -45,7 +45,7 @@ rule arxiv:
         mkdir -p arxiv/build
         Rscript code/singletex.r {ms}.tex arxiv/{ms}.tex
         cd arxiv
-        latexmk --xelatex -interaction=nonstopmode -output-directory=build {ms}.tex
+        latexmk --xelatex -interaction=batchmode -output-directory=build {ms}.tex
         """
 
 rule power:

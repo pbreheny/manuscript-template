@@ -2,14 +2,18 @@
 
 ## Organization
 
-* `template`: This directory contains the template. The basic idea is that you can copy this folder over to a new location, change its name, and begin writing. The infrastructure is all set up.
-  * `template/my-paper.tex`: This is a wrapper file that controls the appearance and layout of the paper.
-  * `template/main.tex`: This contains the actual scientific content of the paper. It is almost always beneficial to separate layout from content when you write a paper --- different journals have different formatting requirements, and you may have to submit the manuscript multiple times, submit to arXiv, etc. You want to divorce those changes from content changes.
-  * `template/Snakefile`: This describes how all the outputs are built and how all the files relate to one another. It describes how to build each figure and table that the manuscript will require, as well as how to build various versions of the manuscript (e.g., the version you submit to a journal and the version you submit to arXiv).
-  * `template/ims.bst`: A bibliography style file from the [IMS](https://imstat.org/)
-  * `template/
 * `style-guide.pdf`: This describes a collection of "do"s and "don't"s with respect to writing and using LaTeX, compiled from years of observing students making the same mistakes.
 * `cache`: This represents results from a simulation study that the manuscript will use. It would typically live in some other directory outside the manuscript. See the [research template](https://github.com/pbreheny/reproducible-template/) for more on the integration between manuscripts and research.
+* `template`: This directory contains the template. The basic idea is that you can copy this folder over to a new location, change its name, and begin writing. The infrastructure is all set up.
+  * `template/my-paper.tex`: This is a wrapper file that defines the document structure.
+  * `template/preamble.tex`: This loads packages that control the appearance and layout of the paper.
+  * `template/math-traditional.tex`: Defines mathematical symbols and macros; this is copied from the [pb-latex repo](https://github.com/pbreheny/pb-latex/).
+  * `template/main.tex`: This contains the actual scientific content of the paper.
+  * `template/abstract.tex`: The abstract.
+  * `template/Snakefile`: You can ignore this if you want, but see the section on Snakemake below.
+  * `template/smallcap.bst`: A bibliography style file from [pb-latex repo](https://github.com/pbreheny/pb-latex/).
+
+I strongly recommend having separate `.tex` files so that you can separate *layout* from *content* when you write a paper. Different journals have different formatting requirements, and you may have to submit the manuscript multiple times, you may want to submit to arXiv, etc. These involve changing the format, but the content needs to the same across these versions. You don't want to rewrite a paragraph, but then also have to go rewrite the same paragraph in the arXiv version, etc.
 
 ## Installing LaTeX
 
@@ -61,15 +65,21 @@ From now on, every time you save the file (`Ctrl+s`), the PDF will automatically
 
 Note also that if you `Ctrl+` click on a spot in the PDF, VS Code will take you to the corresponding location in the source code.
 
+---
+
+Here, I list two additional useful tools. Neither is essential — you can write manuscripts and compile LaTeX documents without them. However, I highly recommend learning how to use them, as they will both prove immensely valuable in the figure.
+
 ## JabRef
 
 Everyone should maintain a personal database of all the articles they are familiar with and might wish to cite. I highly recommend [JabRef](https://www.jabref.org/) for this purpose.
 
-Furthermore, I **strongly** recommend using the standardized form `Hastie2009` (first author plus year) for all reference keys (JabRef does this automatically if you select "Generate citation key"). Any other approach is inherently annoying to all of your coauthors, none of whom will have any idea what your citations mean or what keys to use.
+Furthermore, I strongly recommend using the standardized form `Hastie2009` (first author plus year) for all reference keys (JabRef does this automatically if you select "Generate citation key"). Any other approach will annoy your coauthors, who will not have any idea what your citations mean or what keys to use.
 
 ## Snakemake
 
-[Snakemake](https://snakemake.readthedocs.io) is not necessary for writing LaTeX documents, but if you have external code that creates figures and tables, and the output of that code is needed for the LaTeX document, Snakemake provides a convenient way to describe those dependencies.
+When using LaTeX workshop, every time you save, the document is rebuilt — the output always matches the input. This is not true for the figures and tables, however. If you make a change to the code that generates figure 1, there is no guarantee that this is reflected in the manuscript. Furthermore, where did `figure1.pdf` even come from? What code created it?
+
+To address all of these issues, use [Snakemake](https://snakemake.readthedocs.io). This provides a structured way to map out all the dependencies, all the inputs and outputs that your manuscript depends on (e.g., the manuscript depends on `figure1.pdf`, and `figure1.pdf` is created by running `figure1.R`).
 
 Snakemake is a Python package, although you don't need to know Python in order to use it. If you already have a preferred Python environment manager, install it there. Otherwise, install it with `pip`:
 
@@ -83,13 +93,9 @@ or if you use `uv`:
 uv pip install snakemake
 ```
 
-After installation, verify that Snakemake is available by running:
+To verify that this worked, run `snakemake --version`.
 
-```bash
-snakemake --version
-```
-
-Once it's installed, go to the `template` directory, run
+Now, to see the benefits of Snakemake, delete the `template/results/` directory, go to the `template` directory, run
 
 ``` bash
 snakemake
